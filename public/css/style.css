@@ -1,0 +1,674 @@
+/* General Styling & Variables */
+:root {
+    --primary-color: #003366; /* Biru Tua */
+    --secondary-color: #ffcc00; /* Kuning/Emas */
+    --text-color: #333;
+    --light-bg: #f4f4f4;
+    --blue-box-bg: #eaf4ff; /* Biru muda untuk form */
+    --yellow-box-bg: #fff8e1; /* Kuning muda untuk info */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: white;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* --- Header & Navigation --- */
+.hero {
+    /* Menggunakan background image sesuai screenshot */
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("../images/bg.jpeg") no-repeat center center/cover;
+    background-size: cover;
+    /* Memastikan gambar menutupi seluruh area */
+    background-position: center;
+    /* Memastikan bagian tengah gambar selalu terlihat */
+    background-repeat: no-repeat;
+    width: 100%;
+    /* Memenuhi lebar layar */
+    height: 100vh;
+    /* Memenuhi tinggi layar penuh */
+
+    /* Penting untuk mengatur posisi teks di dalamnya */
+    display: flex;
+    flex-direction: column;
+    /* Menyusun konten secara vertikal */
+    align-items: center;
+
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding-top: 250px;
+    transition: background-color 0.4s ease, height 0.4s ease;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: transparent;
+    padding: 20px 0;
+    transition: background-color 0.4s ease, padding 0.4s ease;
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.navbar .logo img {
+    height: 40px;
+    margin-right: 10px;
+    /* Asumsi gambar logo diubah putih/invert */
+    filter: brightness(0) invert(1);
+}
+
+.navbar nav a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    margin: 0 5px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.navbar nav a:hover {
+    color: var(--secondary-color);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px; /* Padding horizontal */
+}
+
+.scrolled .navbar {
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    padding: 15px 0;
+}
+
+.scrolled .navbar .logo span,
+.scrolled .navbar nav a {
+    color: white;
+}
+
+.hero-content {
+    margin-top: 150px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    border: none;
+}
+
+.btn-login {
+    background: none;
+    border: 1px solid white;
+    color: white !important;
+}
+
+.btn-login:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.hero-content {
+    margin-top: 100px;
+}
+
+.hero-content h1 {
+    font-size: 3em;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.hero-content p {
+    font-size: 1.1em;
+    font-weight: 300;
+    max-width: 700px;
+    margin: 0 auto 20px;
+}
+
+.banner-title {
+    background-color: var(--secondary-color);
+    display: inline-block;
+    padding: 5px 20px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+.banner-title h2 {
+    color: var(--primary-color);
+    font-size: 1.2em;
+    margin: 0;
+}
+
+/* --- About & Stats Section --- */
+.about-stats-section {
+    padding: 60px 0;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.about-content {
+    flex: 2;
+}
+
+.about-content h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+.about-content p {
+    margin-bottom: 30px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.stat-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card h3 {
+    font-size: 2em;
+    color: var(--primary-color);
+    line-height: 1;
+}
+
+.stat-card p {
+    margin: 0;
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+.winner-image-container {
+    flex: 1;
+    position: relative;
+}
+
+.winner-image {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Achievements Section --- */
+.achievements-section {
+    padding: 60px 0;
+    text-align: center;
+    background-color: var(--light-bg);
+}
+
+.achievements-section h2 {
+    margin-bottom: 5px;
+}
+
+.achievements-section p {
+    margin-bottom: 30px;
+    color: #666;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.achievement-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.icon-lg {
+    font-size: 2.5em;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+/* --- Features Section --- */
+.features-section {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.features-title {
+    margin-bottom: 5px;
+}
+
+.features-subtitle {
+    margin-bottom: 40px;
+    color: #666;
+}
+
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.feature-card {
+    padding: 20px;
+    background-color: var(--light-bg);
+    border-radius: 8px;
+    border-top: 5px solid var(--primary-color);
+}
+
+.icon-md {
+    font-size: 2em;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.feature-card h4 {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+/* --- Flow Section (Alur Pendaftaran) --- */
+.flow-section {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.flow-header {
+    margin-bottom: 40px;
+}
+
+/* Penataan Alur Langkah (Tetap sama, sudah cocok) */
+.flow-steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    position: relative;
+    padding: 0 5%;
+}
+
+.flow-steps::before {
+    content: "";
+    position: absolute;
+    top: 40px;
+    left: 11%;
+    right: 11%;
+    height: 4px;
+    background-color: #ccc;
+    z-index: 1;
+}
+
+.step {
+    flex: 1;
+    z-index: 2;
+    max-width: 250px;
+}
+
+.step-circle {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-weight: 800;
+    font-size: 1.5em;
+    margin: 0 auto 15px;
+    border: 5px solid white;
+}
+
+.flow-line {
+    width: 20%;
+    height: 4px;
+    background-color: var(--secondary-color);
+    margin: 0 10px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Benefits Box (Keuntungan) - Sesuai dengan image_b25af6.png */
+.benefits-box {
+    background-color: var(--blue-box-bg);
+    padding: 20px 30px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.benefits-box h4 {
+    text-align: left;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.benefit-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align: left;
+}
+
+.benefit-grid span {
+    flex-basis: 18%; /* 5 item per baris */
+    font-size: 0.9em;
+    font-weight: 500;
+    color: #333;
+    padding: 5px 0; /* Memberi jarak vertikal */
+}
+
+.benefit-grid .fas {
+    color: green;
+    margin-right: 5px;
+}
+
+/* --- Jadwal & Kontak Section (Revisi total) --- */
+.schedule-contact-section {
+    padding: 60px 0;
+    background-color: white; /* Kembali ke putih */
+}
+
+.section-title-center {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.section-subtitle-center {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #666;
+}
+
+.schedule-contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dua kolom sama rata */
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.box {
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.blue-box {
+    background-color: var(--blue-box-bg);
+    border-left: 5px solid var(--primary-color);
+}
+
+.yellow-box {
+    background-color: var(--yellow-box-bg);
+    border-left: 5px solid var(--secondary-color);
+}
+
+.box h4 {
+    margin-bottom: 20px;
+    font-size: 1.3em;
+}
+
+/* Jadwal Detail */
+.schedule-detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed #ccc;
+    font-size: 0.95em;
+}
+.schedule-detail-item:last-child {
+    border-bottom: none;
+}
+
+/* Kontak dan Lokasi */
+.contact-text {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+}
+
+.contact-address {
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+.btn-yellow-inverse {
+    width: 100%;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    margin-top: 15px;
+    padding: 12px;
+}
+.btn-yellow-inverse:hover {
+    background-color: #ffd94d;
+}
+
+.contact-time {
+    margin-top: 30px;
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid #ffd94d;
+}
+
+.time-box {
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-top: 5px;
+}
+
+/* Persyaratan dan Dokumen Grid */
+.requirements-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.requirements-col {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: var(--light-bg);
+}
+
+.requirements-col p {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.requirements-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.requirements-col li {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.requirements-col .fas {
+    color: green;
+    margin-right: 8px;
+}
+
+/* CTA Bottom */
+.cta-bottom {
+    text-align: center;
+    padding: 30px 0;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 10px;
+}
+
+.cta-bottom p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.btn-cta {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 15px 40px;
+    font-size: 1.1em;
+    font-weight: 800;
+}
+.btn-cta:hover {
+    background-color: #ffd94d;
+}
+
+/* --- Footer --- */
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 40px 0 20px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col li,
+.footer-col a {
+    font-size: 0.9rem;
+    color: #ccc;
+    text-decoration: none;
+}
+
+.footer-col a:hover {
+    color: var(--secondary-color);
+}
+
+.copyright {
+    text-align: center;
+}
+
+/* Container Utama */
+.jadwal-syarat-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+/* Info Box Base */
+.info-box {
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.blue-info-box {
+    background: #eef6ff;
+    border-left: 5px solid #007bff;
+}
+
+.yellow-info-box {
+    background: #fff9e6;
+    border-left: 5px solid #ffc107;
+}
+
+/* Styling List */
+.info-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.info-box ul li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.syarat-dokumen-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.syarat-box {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive untuk HP */
+@media (max-width: 768px) {
+    .jadwal-syarat-grid,
+    .syarat-dokumen-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Responsiveness (Media Queries) --- */
+@media (max-width: 992px) {
+    /* ... (Media Query sebelumnya - TIDAK BERUBAH) ... */
+
+    .schedule-contact-grid,
+    .requirements-grid {
+        grid-template-columns: 1fr; /* Stacked columns */
+    }
+}
+
+@media (max-width: 600px) {
+    /* ... (Media Query sebelumnya - TIDAK BERUBAH) ... */
+
+    .benefit-grid span {
+        flex-basis: 100%;
+    }
+}

@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Penilaian extends Model
+{
+    use HasFactory;
+
+    // Menentukan nama tabel
+    protected $table = 'penilaian';
+
+    // Menentukan kunci utama kustom
+    protected $primaryKey = 'id_nilai';
+
+    /**
+     * Kolom-kolom yang boleh diisi
+     */
+    protected $fillable = [
+        'id_pendaftar',
+        'id_penilai',
+        'nilai_fisik',
+        'nilai_dribbling',
+        'nilai_visi',
+        'nilai_kerjasama',
+        'komentar_pelatih',
+        'tgl_penilaian',
+    ];
+
+    /**
+     * Relasi: Penilaian dimiliki oleh Pendaftar (Many-to-One)
+     */
+    public function pendaftar()
+    {
+        // Penilaian belongs to Pendaftar melalui kunci asing 'id_pendaftar'
+        return $this->belongsTo(Pendaftar::class, 'id_pendaftar', 'id_pendaftar');
+    }
+
+    /**
+     * Relasi: Penilaian dimiliki oleh Admin/Pelatih (Many-to-One)
+     */
+    public function penilai()
+    {
+        // Penilaian belongs to Admin melalui kunci asing 'id_penilai'
+        return $this->belongsTo(Admin::class, 'id_penilai', 'id_user');
+    }
+}

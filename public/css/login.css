@@ -1,0 +1,149 @@
+/* General Styling & Variables (Copy dari style.css untuk konsistensi warna) */
+:root {
+    --primary-color: #003366; /* Biru Tua */
+    --secondary-color: #FFCC00; /* Kuning/Emas */
+    --text-color: #333;
+    --light-bg: #f4f4f4;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+/* --- Login Page Styling --- */
+.login-body {
+    background-color: var(--light-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login-wrapper {
+    width: 100%;
+    max-width: 450px; /* Lebar maksimum form */
+    padding: 20px;
+}
+
+/* Tautan Kembali */
+.back-link {
+    display: inline-block;
+    color: var(--primary-color);
+    text-decoration: none;
+    margin-bottom: 20px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+.back-link:hover {
+    color: #004d99;
+}
+.back-link .fas {
+    margin-right: 5px;
+}
+
+/* Kontainer Utama Form */
+.login-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px; /* Sudut membulat */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Icon Bulat di Atas Form */
+.login-icon-circle {
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background-color: #eaf4ff; /* Biru muda */
+    color: var(--primary-color);
+    font-size: 1.8em;
+}
+
+.login-title {
+    font-size: 1.8em;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.login-subtitle {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 0.95em;
+}
+
+/* Form Styling */
+.login-form {
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-color);
+    font-size: 0.9em;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px; /* Sudut input membulat */
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* Tombol Submit */
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    background-color: #004d99;
+}
+
+/* Teks Daftar */
+.register-prompt {
+    margin-top: 25px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.register-prompt a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+.register-prompt a:hover {
+    text-decoration: underline;
+}

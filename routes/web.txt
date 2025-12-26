@@ -1,0 +1,69 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RegisterController; 
+use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\PendaftarDashboardController;
+use App\Exports\PendaftarExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+/* -------------------- RUTE AKSES UMUM -------------------- */
+
+Route::get('/', function () {
+    return view('home');
+})->name('home');
+
+// LOGIN & REGISTER (Hanya untuk yang belum login)
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
+    Route::post('/register', [RegisterController::class, 'createAccount'])->name('account.store');
+    
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+});
+
+// LOGOUT
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+/* -------------------- RUTE PESERTA (GUARD: PESERTA) -------------------- */
+
+Route::middleware(['auth:peserta'])->prefix('pendaftar')->group(function () {
+    
+    // CUKUP SATU RUTE INI UNTUK DASHBOARD
+    // Ini akan menangani /pendaftar/dashboard DAN /pendaftar/dashboard/data_diri
+    Route::get('/dashboard/{page?}', [PendaftarDashboardController::class, 'index'])
+         ->name('pendaftar.dashboard');
+
+    // Rute untuk proses simpan form pendaftaran
+    Route::post('/store', [PendaftarDashboardController::class, 'store'])
+         ->name('pendaftar.store_ukm');
+         
+    // Jika Anda masih butuh rute lama ini, pastikan namanya tidak bentrok
+    // Tapi disarankan gunakan parameter {page} saja agar lebih dinamis
+    Route::get('/form-ukm', [PendaftaranController::class, 'showFullRegistrationForm'])->name('pendaftar.old_form');
+
+    Route::middleware(['auth:peserta'])->prefix('pendaftar')->group(function () {
+    // ... rute yang sudah ada ...
+    
+    // Rute cetak PDF
+    Route::get('/cetak-pdf', [PendaftarDashboardController::class, 'cetakPdf'])
+         ->name('pendaftar.cetak_pdf');
+
+    // Rute cetak exe
+    Route::get('/admin/export-pendaftar', function () {
+    return Excel::download(new PendaftarExport, 'data_pendaftar_' . date('Y-m-d') . '.xlsx');})
+        ->name('admin.export_pendaftar');
+});
+
+
+});
+
+
+/* -------------------- RUTE ADMIN (GUARD: ADMIN) -------------------- */
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+});

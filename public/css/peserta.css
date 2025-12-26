@@ -1,0 +1,552 @@
+/* assets/css/peserta.css */
+
+/* General Styling & Variables */
+:root {
+    --primary-color: #003366; /* Biru Tua */
+    --secondary-color: #FFCC00; /* Kuning/Emas */
+    --text-color: #333;
+    --light-bg: #f4f4f4;
+    --card-bg: white;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--light-bg);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    color: var(--primary-color);
+}
+
+/* --- Peserta Header & Navigation --- */
+.peserta-header {
+    background-color: var(--primary-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+.dashboard-title {
+    color: white;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.btn-logout {
+    background-color: #d9534f;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+/* Navigation Tabs */
+.peserta-nav {
+    display: flex;
+    padding: 0 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    align-items: center;
+}
+
+.nav-item {
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    font-weight: 500;
+    border-bottom: 3px solid transparent;
+    transition: border-bottom 0.3s, background-color 0.3s;
+}
+
+.nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-item.active {
+    border-bottom: 3px solid var(--secondary-color);
+    font-weight: 600;
+}
+
+.nav-item .fas {
+    margin-right: 8px;
+}
+
+.btn-daftar-nav {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 6px 15px;
+    border-radius: 5px;
+    font-weight: 700;
+    text-decoration: none;
+    margin-left: auto; /* Dorong ke kanan */
+    transition: background-color 0.3s;
+}
+.btn-daftar-nav:hover {
+    background-color: #ffda47;
+}
+
+
+/* --- Main Content Layout --- */
+.peserta-main {
+    padding: 30px 20px;
+}
+
+.section-card {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+.hero-section {
+    text-align: center;
+    padding: 40px 30px;
+}
+.hero-section h2 {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+}
+.hero-section p {
+    color: #666;
+}
+
+/* --- Grid Dashboard Awal (Jadwal & Syarat) --- */
+.jadwal-syarat-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 30px;
+}
+
+.info-box {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.info-box h3 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+/* Kotak Jadwal */
+.blue-info-box {
+    background-color: #eaf4ff;
+    border-left: 5px solid var(--primary-color);
+}
+.blue-info-box ul {
+    list-style: none;
+    padding: 0;
+}
+.blue-info-box ul li {
+    padding: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+}
+
+/* Kotak Lokasi */
+.yellow-info-box {
+    background-color: #fffbe6;
+    border-left: 5px solid var(--secondary-color);
+    height: fit-content;
+}
+.yellow-info-box p {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-top: 5px;
+}
+.yellow-info-box small {
+    display: block;
+    color: #666;
+    margin-bottom: 10px;
+}
+.jam-operasi {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-weight: 700;
+    padding: 8px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* Syarat & Dokumen */
+.syarat-dokumen-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.syarat-box h3 {
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+.syarat-box ul {
+    list-style: none;
+    padding: 0;
+}
+.syarat-box ul li {
+    font-size: 0.9em;
+    padding: 3px 0;
+}
+.syarat-box .fas {
+    color: #28a745;
+    margin-right: 5px;
+}
+
+/* Tombol Daftar Besar */
+.action-box {
+    text-align: center;
+    background-color: var(--primary-color);
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+    margin-top: 20px;
+}
+.action-box p {
+    margin-bottom: 15px;
+}
+.btn-primary-lg {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1em;
+    transition: background-color 0.3s;
+}
+
+/* --- Form Pendaftaran --- */
+.form-pendaftaran-card {
+    padding: 40px;
+}
+.form-pendaftaran-card h2 {
+    margin-bottom: 5px;
+}
+.form-section {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+.form-section h3 {
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 5px;
+}
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+    font-size: 0.9em;
+}
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.document-upload-grid {
+    grid-template-columns: 1fr; /* Upload dokumen di tumpuk */
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+}
+.checkbox-group input {
+    width: auto;
+    margin-right: 10px;
+}
+.checkbox-group label {
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+.btn-submit-form {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 1.1em;
+    margin-top: 20px;
+}
+
+/* --- Status & Data Diri (Setelah Daftar) --- */
+.status-header-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.status-badge {
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 700;
+}
+.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+/* Tambahkan status lain di sini (success, failed) */
+
+.info-data-grid-peserta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.blue-info-box-peserta {
+    background-color: #e2f4ff;
+    border-left: 5px solid #007bff;
+}
+.yellow-info-box-peserta {
+    background-color: #fff9e2;
+    border-left: 5px solid #ffc107;
+}
+.catatan-khusus {
+    background-color: var(--secondary-color);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    margin-top: 15px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.data-diri-preview {
+    padding: 30px;
+}
+.data-preview-grid {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 25px;
+    align-items: center;
+}
+.photo-container {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: var(--light-bg);
+    border: 3px solid #ddd;
+    flex-shrink: 0;
+}
+.photo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.detail-container p {
+    margin: 5px 0;
+    font-size: 0.95em;
+}
+.catatan-penting {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.action-buttons button {
+    margin-right: 15px;
+}
+.btn-primary-peserta {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.btn-secondary-peserta {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.catatan-akhir {
+    margin-top: 20px;
+}
+.catatan-akhir h3 {
+    font-size: 1.2em;
+    color: var(--text-color);
+}
+.catatan-akhir ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #666;
+}
+.catatan-akhir ul li:before {
+    content: "•";
+    color: var(--primary-color);
+    font-weight: bold;
+    display: inline-block; 
+    width: 1em;
+    margin-left: -1em;
+}
+
+/* Gunakan selector yang sangat kuat dengan menyertakan parent class-nya */
+.status-header-box span.status-badge.status-lolos-admin {
+    background-color: #28a745 !important;
+    color: #ffffff !important;
+    padding: 8px 20px !important;
+    border-radius: 30px !important;
+    display: inline-block !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 6px rgba(40, 167, 69, 0.2);
+}
+
+
+/* --- Footer Styling --- */
+.peserta-footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding-top: 30px;
+    margin-top: 50px;
+}
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 30px;
+    padding-bottom: 30px;
+}
+.footer-col h3 {
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+.footer-col p {
+    font-size: 0.9em;
+    line-height: 1.6;
+}
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+.footer-col ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9em;
+    line-height: 2;
+    transition: color 0.3s;
+}
+.footer-col ul li a:hover {
+    color: var(--secondary-color);
+}
+.footer-col .fas {
+    margin-right: 8px;
+    color: var(--secondary-color);
+}
+.copyright {
+    background-color: #002244;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.8em;
+}
+
+
+/* --- Responsiveness --- */
+@media (max-width: 992px) {
+    .jadwal-syarat-grid, .info-data-grid-peserta {
+        grid-template-columns: 1fr;
+    }
+    .syarat-dokumen-grid {
+        grid-template-columns: 1fr;
+    }
+    .right-column {
+        padding-top: 0;
+    }
+    .info-box {
+        margin-bottom: 10px;
+    }
+    .action-box {
+        margin-top: 10px;
+    }
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .btn-logout {
+        margin-top: 10px;
+    }
+    .peserta-nav {
+        overflow-x: auto;
+        white-space: nowrap;
+        justify-content: flex-start;
+    }
+    .peserta-nav .nav-item {
+        flex-shrink: 0;
+    }
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .data-preview-grid {
+        flex-direction: column;
+        text-align: center;
+    }
+    .photo-container {
+        margin: 0 auto;
+    }
+    .action-buttons {
+        text-align: center;
+    }
+    .action-buttons button {
+        margin: 5px;
+    }
+    .btn-submit-form {
+        font-size: 1em;
+    }
+}

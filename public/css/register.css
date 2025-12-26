@@ -1,0 +1,202 @@
+/* General Styling & Variables (Konsisten dengan login.css dan style.css) */
+:root {
+    --primary-color: #003366; /* Biru Tua */
+    --secondary-color: #FFCC00; /* Kuning/Emas */
+    --text-color: #333;
+    --light-bg: #f4f4f4;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+/* --- Register Page Styling --- */
+.register-body {
+    background-color: var(--light-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.register-wrapper {
+    width: 100%;
+    max-width: 700px; /* Lebih lebar dari login karena 2 kolom */
+    padding: 20px;
+}
+
+/* Tautan Kembali */
+.back-link {
+    display: inline-block;
+    color: var(--primary-color);
+    text-decoration: none;
+    margin-bottom: 20px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+.back-link:hover {
+    color: #004d99;
+}
+.back-link .fas {
+    margin-right: 5px;
+}
+
+/* Kontainer Utama Form */
+.register-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Icon Bulat di Atas Form */
+.register-icon-circle {
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background-color: #eaf4ff;
+    color: var(--primary-color);
+    font-size: 1.8em;
+}
+
+.register-title {
+    font-size: 1.8em;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.register-subtitle {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 0.95em;
+}
+
+/* Form Styling - Grid 2 Kolom */
+.register-form {
+    text-align: left;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 30px; /* Jarak vertikal dan horizontal */
+}
+
+.form-group {
+    margin-bottom: 0; /* Margin group diatur oleh gap grid */
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-color);
+    font-size: 0.9em;
+}
+
+/* Styling untuk label placeholder (Email di kolom kanan) */
+.placeholder-label {
+    visibility: hidden; /* Sesuai gambar, label 'Email' di atas input ini tidak terlihat */
+    height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* Area Submit untuk tombol Daftar */
+.form-submit-area {
+    /* Menargetkan tombol di baris terakhir, kolom kanan */
+    grid-column: 2; 
+    grid-row: 3;
+    display: flex;
+    align-items: flex-end; /* Memastikan tombol rata bawah */
+}
+
+/* Tombol Submit */
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #004d99;
+}
+
+/* Teks Login */
+.login-prompt {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.login-prompt a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+.login-prompt a:hover {
+    text-decoration: underline;
+}
+
+/* Responsiveness */
+@media (max-width: 650px) {
+    .register-wrapper {
+        max-width: 100%;
+    }
+    .register-container {
+        padding: 30px 20px;
+    }
+    .form-grid {
+        grid-template-columns: 1fr; /* Stack columns on small screens */
+        gap: 0;
+    }
+    .form-submit-area {
+        grid-column: 1; /* Pindahkan tombol ke kolom tunggal */
+        grid-row: auto;
+        margin-top: 20px;
+    }
+    .placeholder-label {
+        visibility: visible; /* Tampilkan label yang tersembunyi */
+        height: auto;
+        margin: 0;
+        padding: 0;
+    }
+    /* Atur kembali margin bawah untuk form group yang di-stack */
+    .form-group {
+        margin-bottom: 20px;
+    }
+}
