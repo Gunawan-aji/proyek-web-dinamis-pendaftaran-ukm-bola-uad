@@ -13,7 +13,7 @@ class RegisterController extends Controller
      */
     public function showRegisterForm()
     {
-        return view('pendaftaran.form'); 
+        return view('pendaftaran.form');
     }
 
     /**
@@ -26,16 +26,16 @@ class RegisterController extends Controller
             'nim' => 'required|string|max:15|unique:pendaftar,nim',
             'nama_lengkap' => 'required|string|max:150',
             'email_kampus' => 'required|email|max:100|unique:pendaftar,email_kampus',
-            'password' => 'required|min:8|confirmed', // Pastikan ada input password_confirmation di blade
+            'password' => 'required|min:8|confirmed',
         ]);
 
         // 2. SIMPAN KE DATABASE
         // Pastikan 'status_pendaftaran' sudah ada di $fillable pada Model Pendaftar
         $pendaftar = Pendaftar::create([
-            'nim'           => $validatedData['nim'],
-            'nama_lengkap'  => $validatedData['nama_lengkap'],
-            'email_kampus'  => $validatedData['email_kampus'],
-            'password_hash' => Hash::make($request->password), 
+            'nim' => $validatedData['nim'],
+            'nama_lengkap' => $validatedData['nama_lengkap'],
+            'email_kampus' => $validatedData['email_kampus'],
+            'password_hash' => Hash::make($request->password),
             'tgl_registrasi' => now(),
             'status_pendaftaran' => 'belum_daftar', // Mengatasi error "Field doesn't have a default value"
         ]);

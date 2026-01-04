@@ -1,4 +1,3 @@
-{{-- resources/views/admin/peserta_detail.blade.php --}}
 <!DOCTYPE html>
 <html lang="id">
 

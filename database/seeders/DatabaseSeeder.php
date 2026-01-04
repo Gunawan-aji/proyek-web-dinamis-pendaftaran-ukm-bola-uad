@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
-        AdminSeeder::class, // <-- Tambahkan baris ini
-        // OtherSeeder::class,
+            AdminSeeder::class,
+            // OtherSeeder::class,
         ]);
     }
 }

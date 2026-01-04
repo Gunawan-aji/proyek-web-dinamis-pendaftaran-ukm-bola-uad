@@ -16,12 +16,12 @@ class AuthController extends Controller
         if (Auth::guard('admin')->check()) {
             return redirect()->route('admin.dashboard');
         }
-        
+
         // JIKA PESERTA sudah login, arahkan ke dashboard Peserta (misalnya, '/pendaftar/dashboard')
-        if (Auth::guard('peserta')->check()) { 
-            return redirect()->route('pendaftar.dashboard'); // Asumsikan ada route ini
+        if (Auth::guard('peserta')->check()) {
+            return redirect()->route('pendaftar.dashboard');
         }
-        
+
         return view('auth.login');
     }
 
@@ -33,35 +33,35 @@ class AuthController extends Controller
         // 1. Validasi Input
         $credentials = $request->validate([
             'username' => 'required|string',
-            'password' => 'required', 
+            'password' => 'required',
         ]);
-        
+
         // 2. Kustomisasi Data untuk Peserta (Menggunakan kolom 'nim')
         // Guard 'peserta' (yang menggunakan Model Pendaftar) harus mencari berdasarkan 'nim'.
         $pesertaCredentials = [
-            'nim' => $credentials['username'], // Kita asumsikan peserta login menggunakan NIM
+            'nim' => $credentials['username'],
             'password' => $credentials['password'],
         ];
 
         // 3. Coba Autentikasi sebagai PESERTA (Pendaftar)
         // *CATATAN PENTING: Guard 'peserta' dan Provider 'pendaftar' HARUS didefinisikan di config/auth.php!*
         if (Auth::guard('peserta')->attempt($pesertaCredentials, $request->boolean('remember'))) {
-            
+
             $request->session()->regenerate();
-            
+
             // Redirect ke Dashboard Peserta (Rute yang harus Anda buat)
-            return redirect()->intended(route('pendaftar.dashboard')); 
+            return redirect()->intended(route('pendaftar.dashboard'));
         }
 
         // 4. Jika gagal sebagai Peserta, coba Autentikasi sebagai ADMIN
         // Guard 'admin' (yang menggunakan Model Admin) harus mencari berdasarkan 'username'.
         $adminCredentials = [
-            'username' => $credentials['username'], // Admin login pakai username
-            'password' => $credentials['password'], 
+            'username' => $credentials['username'],
+            'password' => $credentials['password'],
         ];
-        
+
         if (Auth::guard('admin')->attempt($adminCredentials, $request->boolean('remember'))) {
-            
+
             $request->session()->regenerate();
 
             // Redirect ke Admin Dashboard
@@ -73,7 +73,7 @@ class AuthController extends Controller
             'username' => 'Username atau Password tidak sesuai.',
         ])->onlyInput('username');
     }
-    
+
     /**
      * Memproses Logout (POST /logout)
      * Kita harus log out dari semua guard yang mungkin.
@@ -81,13 +81,13 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         // Jika user adalah Admin, logout Admin.
-        Auth::guard('admin')->logout(); 
-        
+        Auth::guard('admin')->logout();
+
         // Jika user adalah Peserta, logout Peserta.
-        Auth::guard('peserta')->logout(); 
-        
+        Auth::guard('peserta')->logout();
+
         // Logout dari Guard default (web) jika ada
-        Auth::logout(); 
+        Auth::logout();
 
         $request->session()->invalidate();
 

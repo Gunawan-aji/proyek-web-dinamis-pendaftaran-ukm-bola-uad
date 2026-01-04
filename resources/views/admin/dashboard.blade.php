@@ -137,7 +137,7 @@
                             <tr>
                                 <th>Nama</th>
                                 <th>Posisi</th>
-                                <th>Status</th> {{-- Logika Lolos/Gagal akan muncul di sini --}}
+                                <th>Status</th>
                                 <th>Prodi</th>
                             </tr>
                         </thead>
@@ -206,7 +206,7 @@
                                 <th>NIM</th>
                                 <th>Nama Lengkap</th>
                                 <th>Posisi</th>
-                                <th>Nilai Akhir</th> {{-- Kolom Baru Cara A --}}
+                                <th>Nilai Akhir</th>
                                 <th>Tgl Daftar</th>
                                 <th>Status</th>
                                 <th>Aksi</th>

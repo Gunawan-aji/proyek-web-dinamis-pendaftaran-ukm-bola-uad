@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Barryvdh\DomPDF\Facade\Pdf; // Import facade PDF
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PendaftarDashboardController extends Controller
 {

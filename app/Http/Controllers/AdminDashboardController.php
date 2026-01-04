@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pendaftar;
-use App\Models\Penilaian; // Ditambahkan agar lebih konsisten
+use App\Models\Penilaian;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -72,7 +72,7 @@ class AdminDashboardController extends Controller
             'allPendaftar',
             'infoSeleksi',
             'peserta_data',
-            'settings' // Variabel ini kunci buat form setting kamu
+            'settings'
         ));
     }
     public function show($id)

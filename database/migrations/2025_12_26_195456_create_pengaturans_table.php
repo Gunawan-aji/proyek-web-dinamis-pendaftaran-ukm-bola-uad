@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('pengaturans', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique(); // Contoh: 'jadwal_pendaftaran', 'lokasi_stadion'
+            $table->string('key')->unique();
             $table->text('value')->nullable();
             $table->timestamps();
         });

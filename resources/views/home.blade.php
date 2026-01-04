@@ -18,9 +18,13 @@
             <div class="container">
                 <div class="logo">
                     <img src="{{ asset('images/logo2.png') }}" alt="Logo UAD">
-                    <!-- <span>UKM Sepak Bola</span> -->
                 </div>
-                <nav>
+
+                <div class="menu-toggle" id="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+
+                <nav class="nav-menu">
                     <a href="#home">Beranda</a>
                     <a href="#tentang">Tentang Kami</a>
                     <a href="#pendaftaran">Pendaftaran</a>

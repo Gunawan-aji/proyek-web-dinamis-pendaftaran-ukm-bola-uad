@@ -1,22 +1,45 @@
-// assets/js/main.js
+document.addEventListener("DOMContentLoaded", function () {
+    // --- 1. FITUR SCROLL NAVBAR ---
+    const body = document.body;
+    const menuToggle = document.querySelector("#mobile-menu");
+    const navMenu = document.querySelector(".nav-menu");
+    const navLinks = document.querySelectorAll(".nav-menu a");
 
-document.addEventListener("DOMContentLoaded", function() {
-    const header = document.querySelector(".hero"); // Atau .navbar, tergantung elemen mana yang ingin diberi background
-    
-    // Fungsi untuk mengubah kelas berdasarkan posisi scroll
     function checkScroll() {
         if (window.scrollY > 50) {
-            // Jika discroll lebih dari 50px, tambahkan kelas 'scrolled'
-            header.classList.add("scrolled");
+            body.classList.add("scrolled");
         } else {
-            // Jika berada di atas, hapus kelas 'scrolled'
-            header.classList.remove("scrolled");
+            body.classList.remove("scrolled");
         }
     }
 
-    // Panggil fungsi saat event scroll terjadi
+    // --- 2. FITUR HAMBURGER MENU (MOBILE) ---
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener("click", function () {
+            navMenu.classList.toggle("active");
+
+            // Animasi ikon: ganti bar jadi X (fa-times)
+            const icon = menuToggle.querySelector("i");
+            if (navMenu.classList.contains("active")) {
+                icon.classList.replace("fa-bars", "fa-times");
+            } else {
+                icon.classList.replace("fa-times", "fa-bars");
+            }
+        });
+
+        // Tutup menu otomatis saat link navigasi diklik
+        navLinks.forEach((link) => {
+            link.addEventListener("click", () => {
+                navMenu.classList.remove("active");
+                const icon = menuToggle.querySelector("i");
+                icon.classList.replace("fa-times", "fa-bars");
+            });
+        });
+    }
+
+    // --- 3. EVENT LISTENERS ---
     window.addEventListener("scroll", checkScroll);
 
-    // Panggil sekali saat dimuat untuk memastikan status jika halaman dimuat di tengah
+    // Jalankan sekali saat load
     checkScroll();
 });

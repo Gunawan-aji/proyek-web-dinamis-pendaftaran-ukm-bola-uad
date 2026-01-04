@@ -1,7 +1,6 @@
-/* General Styling & Variables (Copy dari style.css untuk konsistensi warna) */
 :root {
-    --primary-color: #003366; /* Biru Tua */
-    --secondary-color: #FFCC00; /* Kuning/Emas */
+    --primary-color: #003366;
+    --secondary-color: #ffcc00;
     --text-color: #333;
     --light-bg: #f4f4f4;
 }
@@ -10,7 +9,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -29,7 +28,7 @@ body {
 
 .login-wrapper {
     width: 100%;
-    max-width: 450px; /* Lebar maksimum form */
+    max-width: 450px;
     padding: 20px;
 }
 
@@ -53,7 +52,7 @@ body {
 .login-container {
     background-color: white;
     padding: 40px;
-    border-radius: 15px; /* Sudut membulat */
+    border-radius: 15px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
@@ -65,7 +64,7 @@ body {
     line-height: 70px;
     margin: 0 auto 20px;
     border-radius: 50%;
-    background-color: #eaf4ff; /* Biru muda */
+    background-color: #eaf4ff;
     color: var(--primary-color);
     font-size: 1.8em;
 }
@@ -103,7 +102,7 @@ body {
     width: 100%;
     padding: 12px;
     border: 1px solid #ddd;
-    border-radius: 8px; /* Sudut input membulat */
+    border-radius: 8px;
     font-size: 1em;
     transition: border-color 0.3s;
 }

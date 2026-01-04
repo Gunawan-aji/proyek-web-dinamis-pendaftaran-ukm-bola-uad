@@ -6,7 +6,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\PendaftarDashboardController;
-use App\Exports\PendaftarExport; // Pastikan ini ada agar class Excel dikenali
+use App\Exports\PendaftarExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 /* -------------------- RUTE AKSES UMUM -------------------- */

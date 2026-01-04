@@ -1,11 +1,10 @@
-/* General Styling & Variables */
 :root {
-    --primary-color: #003366; /* Biru Tua */
-    --secondary-color: #ffcc00; /* Kuning/Emas */
+    --primary-color: #003366;
+    --secondary-color: #ffcc00;
     --text-color: #333;
     --light-bg: #f4f4f4;
-    --blue-box-bg: #eaf4ff; /* Biru muda untuk form */
-    --yellow-box-bg: #fff8e1; /* Kuning muda untuk info */
+    --blue-box-bg: #eaf4ff;
+    --yellow-box-bg: #fff8e1;
 }
 
 * {
@@ -37,7 +36,6 @@ h4 {
 
 /* --- Header & Navigation --- */
 .hero {
-    /* Menggunakan background image sesuai screenshot */
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
         url("../images/bg.jpeg") no-repeat center center/cover;
     background-size: cover;
@@ -87,7 +85,6 @@ h4 {
 .navbar .logo img {
     height: 40px;
     margin-right: 10px;
-    /* Asumsi gambar logo diubah putih/invert */
     filter: brightness(0) invert(1);
 }
 
@@ -110,7 +107,7 @@ h4 {
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px; /* Padding horizontal */
+    padding: 0 20px;
 }
 
 .scrolled .navbar {
@@ -391,11 +388,11 @@ h4 {
 }
 
 .benefit-grid span {
-    flex-basis: 18%; /* 5 item per baris */
+    flex-basis: 18%;
     font-size: 0.9em;
     font-weight: 500;
     color: #333;
-    padding: 5px 0; /* Memberi jarak vertikal */
+    padding: 5px 0;
 }
 
 .benefit-grid .fas {
@@ -406,7 +403,7 @@ h4 {
 /* --- Jadwal & Kontak Section (Revisi total) --- */
 .schedule-contact-section {
     padding: 60px 0;
-    background-color: white; /* Kembali ke putih */
+    background-color: white;
 }
 
 .section-title-center {
@@ -422,7 +419,7 @@ h4 {
 
 .schedule-contact-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Dua kolom sama rata */
+    grid-template-columns: 1fr 1fr;
     gap: 30px;
     margin-bottom: 40px;
 }
@@ -647,28 +644,137 @@ footer {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
+/* --- Hamburger Menu Styling --- */
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+    z-index: 1001;
+}
+
 /* Responsive untuk HP */
+/* --- Optimized Responsiveness --- */
+
+/* Tablet & HP Landscape */
+@media (max-width: 992px) {
+    .about-stats-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .stats-grid {
+        margin-top: 20px;
+    }
+
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .schedule-contact-grid,
+    .requirements-grid,
+    .jadwal-syarat-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* Smartphone Portrait */
 @media (max-width: 768px) {
-    .jadwal-syarat-grid,
+    /* Navbar Hamburger Logic */
+    .menu-toggle {
+        display: block;
+        font-size: 1.5rem;
+        color: white;
+        cursor: pointer;
+        z-index: 1100;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background-color: var(--primary-color);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: 0.4s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        z-index: 1050;
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+
+    .nav-menu a {
+        margin: 15px 0 !important;
+        font-size: 1.2rem;
+        display: block;
+    }
+
+    .btn-login {
+        border: 1px solid var(--secondary-color) !important;
+        width: 80%;
+        text-align: center;
+    }
+
+    /* Hero Text Adjustment */
+    .hero {
+        /* Gunakan min-height agar fleksibel jika konten memanjang */
+        min-height: 100vh;
+        height: auto;
+
+        /* Reset padding agar teks tidak terlalu turun di layar kecil */
+        padding-top: 150px;
+        padding-bottom: 50px;
+
+        /* Pastikan background tetap fokus ke tengah */
+        background-attachment: scroll;
+        background-position: center center;
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem; /* Perkecil ukuran font agar tidak berantakan */
+        padding: 0 15px;
+    }
+
+    .hero-content p {
+        font-size: 0.9rem;
+        padding: 0 20px;
+    }
+
+    /* Grid Adjustment */
+    .grid-3,
+    .grid-4,
     .syarat-dokumen-grid {
         grid-template-columns: 1fr;
     }
-}
 
-/* --- Responsiveness (Media Queries) --- */
-@media (max-width: 992px) {
-    /* ... (Media Query sebelumnya - TIDAK BERUBAH) ... */
-
-    .schedule-contact-grid,
-    .requirements-grid {
-        grid-template-columns: 1fr; /* Stacked columns */
+    /* Flow Steps (Alur) Adjustment */
+    .flow-steps {
+        flex-direction: column;
+        gap: 40px;
     }
-}
 
-@media (max-width: 600px) {
-    /* ... (Media Query sebelumnya - TIDAK BERUBAH) ... */
+    .flow-steps::before {
+        display: none;
+    }
 
     .benefit-grid span {
         flex-basis: 100%;
+        margin-bottom: 10px;
+    }
+
+    /* List Jadwal di HP agar tidak penyet */
+    .schedule-detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
     }
 }
