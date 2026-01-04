@@ -29,6 +29,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title }} - UKM Sepak Bola UAD</title>
     {{-- Pastikan file CSS ini ada di public/css/admin.css --}}
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
@@ -187,6 +188,10 @@
                         <a href="{{ route('admin.export_pendaftar') }}" class="btn btn-secondary">
                             <i class="fas fa-download"></i> Export Data
                         </a>
+                        <div class="search-ajax-wrapper" style="position: relative; display: inline-block; margin-right: 15px;">
+                            <i class="fas fa-search" style="position: absolute; left: 10px; top: 12px; color: #aaa;"></i>
+                            <input type="text" id="ajax-search-input" placeholder="Cari Nama/NIM..." class="form-control" style="padding-left: 35px; border-radius: 20px; border: 1px solid #ddd; height: 40px; width: 250px;">
+                        </div>
                     </div>
                 </div>
 
@@ -212,7 +217,7 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="main-table-body">
                             @forelse($allPendaftar as $index => $pendaftar)
                                 <tr>
                                     <td>{{ $allPendaftar->firstItem() + $index }}</td>
@@ -290,7 +295,7 @@
                     </table>
                 </div>
 
-                <div class="pagination-laravel">
+                <div class="pagination-laravel" id="pagination-container">
                     {{ $allPendaftar->links() }}
                 </div>
             </div>
@@ -456,6 +461,54 @@
     <footer class="admin-footer">
         <p>&copy; 2025 UKM Sepak Bola Universitas Ahmad Dahlan. All rights reserved.</p>
     </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('ajax-search-input');
+        const tableBody = document.getElementById('main-table-body');
+        const pagination = document.getElementById('pagination-container');
+
+        if (searchInput) {
+            searchInput.addEventListener('keyup', function() {
+                let keyword = this.value;
+
+                // Sembunyikan pagination saat user sedang mengetik/mencari
+                pagination.style.display = (keyword.length > 0) ? 'none' : 'block';
+
+                // Ambil data dari server tanpa reload (AJAX)
+                fetch(`{{ route('admin.peserta.search') }}?keyword=${keyword}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        tableBody.innerHTML = ''; 
+                        
+                        if (data.length > 0) {
+                            data.forEach((p, index) => {
+                                // Susun ulang baris tabel secara otomatis
+                                tableBody.innerHTML += `
+                                    <tr>
+                                        <td>${index + 1}</td>
+                                        <td>${p.nim}</td>
+                                        <td>${p.nama_lengkap}</td>
+                                        <td><strong>${p.posisi_pilihan}</strong></td>
+                                        <td><span style="color:#aaa; font-style:italic;">Detail di profil</span></td>
+                                        <td>${new Date(p.created_at).toLocaleDateString('id-ID')}</td>
+                                        <td><span class="badge">${p.status_pendaftaran}</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <a href="/admin/peserta/${p.id_pendaftar}" class="btn-action view"><i class="fas fa-eye"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>`;
+                            });
+                        } else {
+                            tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center;">Data tidak ditemukan.</td></tr>';
+                        }
+                    })
+                    .catch(err => console.error("Search Error: ", err));
+            });
+        }
+    });
+</script>
 
 </body>
 

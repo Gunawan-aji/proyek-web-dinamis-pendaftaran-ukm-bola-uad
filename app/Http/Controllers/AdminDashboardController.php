@@ -4,21 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Pendaftar;
 use App\Models\Penilaian;
+use App\Models\Pengaturan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class AdminDashboardController extends Controller
 {
+    /**
+     * Menampilkan Dashboard Utama Admin
+     */
     public function index(Request $request)
     {
         // Ambil parameter halaman dari URL (?page=...)
         $page = $request->query('page', 'dashboard');
 
         // 1. DATA PENGATURAN (Penting agar form setting terisi data asli)
-        $settings = \App\Models\Pengaturan::pluck('value', 'key');
+        $settings = Pengaturan::pluck('value', 'key');
 
-        // 2. LOGIKA PENCARIAN PESERTA
+        // 2. LOGIKA PENCARIAN PESERTA (Manual via URL)
         $nim_search = $request->query('nim');
         $peserta_data = null;
         if ($nim_search) {
@@ -55,14 +59,13 @@ class AdminDashboardController extends Controller
         $pendaftarTerbaru = Pendaftar::latest()->take(5)->get();
         $allPendaftar = Pendaftar::latest()->paginate(10)->withQueryString();
 
-        // 8. INFO SELEKSI (Sekarang mengambil dari database, bukan manual lagi)
+        // 8. INFO SELEKSI
         $infoSeleksi = [
             'lokasi' => $settings['nama_lokasi_seleksi'] ?? 'Belum Diatur',
             'jadwal' => $settings['tgl_seleksi_lapangan'] ?? 'Belum Diatur',
             'kelulusan' => $percentages['diterima']
         ];
 
-        // KIRIM SEMUA KE VIEW
         return view('admin.dashboard', compact(
             'page',
             'stats',
@@ -75,6 +78,25 @@ class AdminDashboardController extends Controller
             'settings'
         ));
     }
+
+    /**
+     * FITUR WAJIB TAHAP 2: Live Search via AJAX
+     */
+    public function search(Request $request)
+    {
+        $keyword = $request->query('keyword');
+
+        // Cari berdasarkan Nama atau NIM
+        $results = Pendaftar::where('nama', 'LIKE', "%$keyword%")
+            ->orWhere('nim', 'LIKE', "%$keyword%")
+            ->latest()
+            ->take(10) // Batasi 10 hasil agar cepat
+            ->get();
+
+        // Return dalam bentuk JSON untuk diproses JavaScript di Client-Side
+        return response()->json($results);
+    }
+
     public function show($id)
     {
         $peserta = Pendaftar::findOrFail($id);
@@ -85,7 +107,6 @@ class AdminDashboardController extends Controller
     {
         $peserta = Pendaftar::findOrFail($id);
 
-        // Daftar file yang harus dihapus dari storage
         $files = [$peserta->path_foto, $peserta->path_ktm, $peserta->path_sk_sehat, $peserta->path_sertifikat];
 
         foreach ($files as $file) {
@@ -111,7 +132,6 @@ class AdminDashboardController extends Controller
 
         $rata_rata = ($request->skor_fisik + $request->skor_teknik + $request->skor_visi + $request->skor_kerjasama) / 4;
 
-        // UpdateOrCreate memastikan tidak ada duplikasi data penilaian untuk satu peserta
         Penilaian::updateOrCreate(
             ['id_pendaftar' => $request->id_pendaftar],
             [
@@ -123,7 +143,6 @@ class AdminDashboardController extends Controller
             ]
         );
 
-        // Update status pendaftaran
         Pendaftar::where('id_pendaftar', $request->id_pendaftar)
             ->update(['status_pendaftaran' => 'lolos_admin']);
 
@@ -133,26 +152,21 @@ class AdminDashboardController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        $peserta = \App\Models\Pendaftar::findOrFail($id);
-
-        // Validasi input status
+        $peserta = Pendaftar::findOrFail($id);
         $statusInput = $request->input('status');
 
-        // Update status di database
         $peserta->status_pendaftaran = $statusInput;
         $peserta->save();
 
-        return redirect()->back()->with('success', 'Status berkas berhasil diperbarui menjadi ' . str_replace('_', ' ', $statusInput));
+        return redirect()->back()->with('success', 'Status berkas berhasil diperbarui.');
     }
 
     public function updateSettings(Request $request)
     {
-        // Ambil semua data dari form kecuali token Laravel
         $data = $request->except(['_token', '_method']);
 
         foreach ($data as $key => $value) {
-            // updateOrCreate: kalau key sudah ada diupdate, kalau belum dibuat baru
-            \App\Models\Pengaturan::updateOrCreate(
+            Pengaturan::updateOrCreate(
                 ['key' => $key],
                 ['value' => $value]
             );
