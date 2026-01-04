@@ -86,14 +86,15 @@ class AdminDashboardController extends Controller
     {
         $keyword = $request->query('keyword');
 
-        // Cari berdasarkan Nama atau NIM
-        $results = Pendaftar::where('nama', 'LIKE', "%$keyword%")
-            ->orWhere('nim', 'LIKE', "%$keyword%")
+        // Tambahkan with('penilaian') agar relasi datanya ikut terbawa ke JSON
+        $results = Pendaftar::with('penilaian')
+            ->where(function ($query) use ($keyword) {
+                $query->where('nama_lengkap', 'LIKE', "%$keyword%")
+                    ->orWhere('nim', 'LIKE', "%$keyword%");
+            })
             ->latest()
-            ->take(10) // Batasi 10 hasil agar cepat
             ->get();
 
-        // Return dalam bentuk JSON untuk diproses JavaScript di Client-Side
         return response()->json($results);
     }
 

@@ -462,52 +462,90 @@
         <p>&copy; 2025 UKM Sepak Bola Universitas Ahmad Dahlan. All rights reserved.</p>
     </footer>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('ajax-search-input');
-        const tableBody = document.getElementById('main-table-body');
-        const pagination = document.getElementById('pagination-container');
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('ajax-search-input');
+    const tableBody = document.getElementById('main-table-body');
+    const pagination = document.getElementById('pagination-container');
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
-        if (searchInput) {
-            searchInput.addEventListener('keyup', function() {
-                let keyword = this.value;
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            let keyword = this.value;
 
-                // Sembunyikan pagination saat user sedang mengetik/mencari
+            if (pagination) {
                 pagination.style.display = (keyword.length > 0) ? 'none' : 'block';
+            }
 
-                // Ambil data dari server tanpa reload (AJAX)
-                fetch(`{{ route('admin.peserta.search') }}?keyword=${keyword}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        tableBody.innerHTML = ''; 
-                        
-                        if (data.length > 0) {
-                            data.forEach((p, index) => {
-                                // Susun ulang baris tabel secara otomatis
-                                tableBody.innerHTML += `
-                                    <tr>
-                                        <td>${index + 1}</td>
-                                        <td>${p.nim}</td>
-                                        <td>${p.nama_lengkap}</td>
-                                        <td><strong>${p.posisi_pilihan}</strong></td>
-                                        <td><span style="color:#aaa; font-style:italic;">Detail di profil</span></td>
-                                        <td>${new Date(p.created_at).toLocaleDateString('id-ID')}</td>
-                                        <td><span class="badge">${p.status_pendaftaran}</span></td>
-                                        <td>
-                                            <div class="action-buttons">
-                                                <a href="/admin/peserta/${p.id_pendaftar}" class="btn-action view"><i class="fas fa-eye"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>`;
-                            });
+            fetch(`{{ route('admin.peserta.search') }}?keyword=${keyword}`, {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                tableBody.innerHTML = ''; 
+                
+                if (data.length > 0) {
+                    data.forEach((p, index) => {
+                        // LOGIKA NILAI (Sesuai Screenshot: Box Putih/Abu)
+                        let nilaiHtml = '<span style="color: #ccc;">---</span>';
+                        let statusHtml = '';
+
+                        if (p.penilaian) {
+                            let rataRata = parseFloat(p.penilaian.nilai_rata_rata).toFixed(2);
+                            
+                            nilaiHtml = `
+                                <div style="background: #f8f9fa; border: 1px solid #ddd; border-radius: 10px; padding: 8px 12px; display: inline-block;">
+                                    <strong style="font-size: 1.1em; color: #333;">${rataRata}</strong>
+                                    <small style="display:block; font-size: 10px; color: #777;">Avg Score</small>
+                                </div>`;
+
+                            // LOGIKA STATUS (Sesuai Screenshot: Hijau LOLOS / Merah GAGAL)
+                            if (rataRata >= 65) {
+                                statusHtml = `<span style="color: #28a745; font-weight: 700;"><i class="fas fa-check-circle"></i> LOLOS</span>`;
+                            } else {
+                                statusHtml = `<span style="color: #dc3545; font-weight: 700;"><i class="fas fa-times-circle"></i> GAGAL</span>`;
+                            }
                         } else {
-                            tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center;">Data tidak ditemukan.</td></tr>';
+                            // Badge Status Default jika belum ada penilaian
+                            let statusClass = p.status_pendaftaran.toLowerCase().replace(/_/g, '-');
+                            statusHtml = `<span class="badge status-${statusClass}">${p.status_pendaftaran.replace(/_/g, ' ').toUpperCase()}</span>`;
                         }
-                    })
-                    .catch(err => console.error("Search Error: ", err));
-            });
-        }
-    });
+
+                        // FORMAT TANGGAL
+                        let tgl = new Date(p.created_at);
+                        let tglFormatted = tgl.getDate().toString().padStart(2, '0') + '/' + 
+                                           (tgl.getMonth()+1).toString().padStart(2, '0') + '/' + 
+                                           tgl.getFullYear();
+
+                        tableBody.innerHTML += `
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td>${p.nim}</td>
+                                <td>${p.nama_lengkap}</td>
+                                <td><strong>${p.posisi_pilihan}</strong></td>
+                                <td style="text-align:center;">${nilaiHtml}</td>
+                                <td>${tglFormatted}</td>
+                                <td>${statusHtml}</td>
+                                <td>
+                                    <div class="action-buttons" style="display:flex; gap:8px;">
+                                        <a href="/admin/peserta/${p.id_pendaftar}" class="btn-action edit" style="background:#007bff; padding:8px; border-radius:6px; color:#fff;"><i class="fas fa-edit"></i></a>
+                                        <form action="/admin/peserta/${p.id_pendaftar}" method="POST" onsubmit="return confirm('Hapus data?')">
+                                            <input type="hidden" name="_token" value="${csrfToken}">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="btn-action delete" style="background:#dc3545; border:none; padding:8px; border-radius:6px; color:#fff; cursor:pointer;"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>`;
+                    });
+                } else {
+                    tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:30px;">Data tidak ditemukan.</td></tr>';
+                }
+            })
+            .catch(err => console.error("AJAX Error:", err));
+        });
+    }
+});
 </script>
 
 </body>

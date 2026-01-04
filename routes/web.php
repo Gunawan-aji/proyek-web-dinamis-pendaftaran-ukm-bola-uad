@@ -52,7 +52,7 @@ Route::middleware(['auth:peserta'])->prefix('pendaftar')->group(function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
 
-    Route::get('/admin/peserta/search', [AdminDashboardController::class, 'search'])->name('admin.peserta.search');
+    Route::get('/peserta/search', [AdminDashboardController::class, 'search'])->name('admin.peserta.search');
 
     // PERBAIKAN: Gunakan rute relatif terhadap prefix 'admin'
     Route::get('/export-pendaftar', function () {
